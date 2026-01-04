@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('node:path');
-const { sayHello } = require('@app/sdk');
+const { RongIMClient } = require('@app/sdk');
+const sdkClient = new RongIMClient();
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -24,7 +25,7 @@ const createWindow = () => {
   mainWindow.webContents.openDevTools();
 
   // Use SDK: set window title with SDK message
-  const title = sayHello('Electron');
+  const title = sdkClient.sayHello('Electron');
   mainWindow.setTitle(title);
 };
 
@@ -36,7 +37,7 @@ app.whenReady().then(() => {
 
   // Expose SDK via IPC for renderer (preload will call this)
   ipcMain.handle('sdk:sayHello', (_event, name) => {
-    return sayHello(name);
+    return sdkClient.sayHello(name);
   });
 
   // On OS X it's common to re-create a window in the app when the
