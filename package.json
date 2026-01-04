@@ -1,0 +1,12 @@
+{
+  "name": "electron-project",
+  "private": true,
+  "scripts": {
+    "start": "npm --prefix packages/app start",
+    "install:app": "npm --prefix packages/app install",
+    "make": "npm --prefix packages/app run make",
+    "package": "npm --prefix packages/app run package",
+    "publish": "npm --prefix packages/app run publish"
+  }
+}
+
