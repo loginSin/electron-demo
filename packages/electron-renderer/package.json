@@ -1,0 +1,12 @@
+{
+  "name": "@rc/electron-renderer",
+  "version": "1.0.0",
+  "private": true,
+  "main": "preload.js",
+  "license": "MIT",
+  "files": [
+    "preload.js"
+  ]
+}
+
+

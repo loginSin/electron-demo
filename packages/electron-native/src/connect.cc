@@ -20,12 +20,6 @@ namespace rcim {
         int64_t s = 0;
         bool lossless = false;
 
-        // RcimEngineSync *engine;
-        // code = rcim_engine_builder_build(builder, &engine);
-        // // 将 RcimEngineSync *engine 指针转为 64 位整数并返回（BigInt）
-        // napi_value ret;
-        // int64_t ptr = (int64_t)(uintptr_t)engine;
-
         napi_get_value_bigint_int64(env, args[0], &s, &lossless);
         RcimEngineSync* engine = (RcimEngineSync*)(uintptr_t)s;
         fprintf(stderr, "[rcim] connect() with engine ptr: %lld\n", (long long)s);
@@ -40,3 +34,5 @@ namespace rcim {
         return undef;
     }
 }
+
+
