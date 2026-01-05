@@ -1,3 +1,5 @@
+import * as native from '@app/native';
+
 export class RongIMClient {
   sayHello(name?: string): string {
     const who = name && name.trim().length > 0 ? name : 'World';
@@ -15,6 +17,16 @@ export class RongIMClient {
     const message = `🔔 Hello (callback) from SDK, ${who}!`;
     // 模拟异步回调
     setTimeout(() => callback(message), 0);
+  }
+
+  /**
+   * 原生方法包装：调用 @app/native 的 helloWithCallback
+   */
+  nativeHello(
+    name: string | undefined,
+    callback: (message: string) => void
+  ): void {
+    native.helloWithCallback(name, callback);
   }
 }
 

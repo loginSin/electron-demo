@@ -1,0 +1,12 @@
+{
+  "name": "@app/native",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "gypfile": true,
+  "scripts": {
+    "build": "node-gyp rebuild"
+  }
+}
+
+

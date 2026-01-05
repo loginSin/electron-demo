@@ -49,6 +49,15 @@ app.whenReady().then(() => {
     });
   });
 
+  // Native-backed method via SDK
+  ipcMain.handle('sdk:nativeHello', (_event, name) => {
+    return new Promise((resolve) => {
+      sdkClient.nativeHello(name, (message) => {
+        resolve(message);
+      });
+    });
+  });
+
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   app.on('activate', () => {
