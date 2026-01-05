@@ -1,7 +1,5 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('node:path');
-const { RongIMClient } = require('@rc/sdk');
-const sdkClient = RongIMClient.getInstance();
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -32,33 +30,9 @@ const createWindow = () => {
 app.whenReady().then(() => {
   createWindow();
 
-  // Expose SDK via IPC for renderer (preload will call this)
-  ipcMain.handle('sdk:sayHello', (_event, name) => {
-    return sdkClient.sayHello(name);
-  });
-
-  // Native-backed method via SDK
-  ipcMain.handle('sdk:nativeHello', (_event, name) => {
-    return new Promise((resolve) => {
-      sdkClient.nativeHello(name, (message) => {
-        resolve(message);
-      });
-    });
-  });
-
-  // Create engine via SDK/native（使用沙盒路径）
-  ipcMain.handle('sdk:createEngine', () => {
-    const fs = require('node:fs');
-    const userData = app.getPath('userData');
-    const storePath = path.join(userData, 'database');
-    try { fs.mkdirSync(storePath, { recursive: true }); } catch {}
-    return sdkClient.createEngine(storePath);
-  });
-
-  // Connect via SDK/native
-  ipcMain.handle('sdk:connect', () => {
-    return sdkClient.connect();
-  });
+  // Register SDK IPC handlers via @rc/sdk
+  const { registerMainHandlers } = require('@rc/sdk/registerMain');
+  registerMainHandlers(ipcMain, app);
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   app.on('activate', () => {

@@ -23,8 +23,8 @@ export class RongIMClient {
     console.log('RongIM enginePtr:', this.enginePtr.toString());
   }
 
-  connect(): void {
-    native.connect(this.enginePtr);
+  connect(token: string, timeout: number, callback: (error: number, userId: string) => void): void {
+    native.connect(this.enginePtr, token, timeout, callback);
   }
 }
 

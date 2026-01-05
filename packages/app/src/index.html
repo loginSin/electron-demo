@@ -36,11 +36,12 @@
           return;
         }
         try {
-          await window.sdk.connect();
-          result.textContent = 'connect 调用完成';
+          let token = "rdIKubNd6vTWuKUdlUU6eOF+lwb3rejulGH0HEWstV0=@h4mx.cn.rongnav.com;h4mx.cn.rongcfg.com";
+          const res = await window.sdk.connect(token, 5);
+          result.textContent = `connect 结果: code=${res && res.code !== undefined ? res.code : 'N/A'}, userId=${res && res.userId ? res.userId : ''}`;
         } catch (err) {
           console.error(err);
-          result.textContent = 'SDK 调用失败';
+          result.textContent = `SDK 调用失败: ${err && err.message ? err.message : String(err)}`;
         }
       });
     </script>
