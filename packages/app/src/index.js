@@ -24,9 +24,6 @@ const createWindow = () => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 
-  // Use SDK: set window title with SDK message
-  const title = sdkClient.sayHello('Electron');
-  mainWindow.setTitle(title);
 };
 
 // This method will be called when Electron has finished

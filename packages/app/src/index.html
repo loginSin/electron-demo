@@ -8,45 +8,13 @@
   <body>
     <h1>💖 Hello World!</h1>
     <p>Welcome to your Electron application.</p>
-    <button id="btnHello">调用 sayHello</button>
-    <button id="btnNativeHello">调用 nativeHello</button>
     <button id="btnCreateEngine">调用 createEngine</button>
     <button id="btnConnect">调用 connect</button>
     <p id="result" style="margin-top: 1rem; font-weight: bold;"></p>
     <script>
-      const btn = document.getElementById('btnHello');
-      const btnCb = document.getElementById('btnHelloCb');
       const result = document.getElementById('result');
-      const btnNative = document.getElementById('btnNativeHello');
       const btnCreateEngine = document.getElementById('btnCreateEngine');
       const btnConnect = document.getElementById('btnConnect');
-      btn.addEventListener('click', async () => {
-        if (!window.sdk || typeof window.sdk.sayHello !== 'function') {
-          result.textContent = 'SDK 不可用';
-          return;
-        }
-        try {
-          const msg = await window.sdk.sayHello('Electron');
-          result.textContent = msg;
-        } catch (err) {
-          console.error(err);
-          result.textContent = 'SDK 调用失败';
-        }
-      });
-      
-      btnNative.addEventListener('click', async () => {
-        if (!window.sdk || typeof window.sdk.nativeHello !== 'function') {
-          result.textContent = 'SDK 不可用';
-          return;
-        }
-        try {
-          const msg = await window.sdk.nativeHello('Electron');
-          result.textContent = msg;
-        } catch (err) {
-          console.error(err);
-          result.textContent = 'SDK 调用失败';
-        }
-      });
 
       btnCreateEngine.addEventListener('click', async () => {
         if (!window.sdk || typeof window.sdk.createEngine !== 'function') {

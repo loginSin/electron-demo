@@ -1,21 +1,17 @@
 import * as native from '@rc/native';
 
 export class RongIMClient {
+  private enginePtr: bigint = 0n;
+
   private static instance: RongIMClient | null = null;
+
+  private constructor() {}
+
   static getInstance(): RongIMClient {
     if (!RongIMClient.instance) {
       RongIMClient.instance = new RongIMClient();
     }
     return RongIMClient.instance;
-  }
-
-  private constructor() {}
-
-  private enginePtr: bigint = 0n;
-
-  sayHello(name?: string): string {
-    const who = name && name.trim().length > 0 ? name : 'World';
-    return `💡 Hello from SDK, ${who}!`;
   }
 
   /**
