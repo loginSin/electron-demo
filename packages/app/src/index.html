@@ -9,14 +9,17 @@
     <h1>💖 Hello World!</h1>
     <p>Welcome to your Electron application.</p>
     <button id="btnHello">调用 sayHello</button>
-    <button id="btnHelloCb">调用 sayHelloWithCallback</button>
     <button id="btnNativeHello">调用 nativeHello</button>
+    <button id="btnCreateEngine">调用 createEngine</button>
+    <button id="btnConnect">调用 connect</button>
     <p id="result" style="margin-top: 1rem; font-weight: bold;"></p>
     <script>
       const btn = document.getElementById('btnHello');
       const btnCb = document.getElementById('btnHelloCb');
       const result = document.getElementById('result');
       const btnNative = document.getElementById('btnNativeHello');
+      const btnCreateEngine = document.getElementById('btnCreateEngine');
+      const btnConnect = document.getElementById('btnConnect');
       btn.addEventListener('click', async () => {
         if (!window.sdk || typeof window.sdk.sayHello !== 'function') {
           result.textContent = 'SDK 不可用';
@@ -24,20 +27,6 @@
         }
         try {
           const msg = await window.sdk.sayHello('Electron');
-          result.textContent = msg;
-        } catch (err) {
-          console.error(err);
-          result.textContent = 'SDK 调用失败';
-        }
-      });
-
-      btnCb.addEventListener('click', async () => {
-        if (!window.sdk || typeof window.sdk.sayHelloWithCallback !== 'function') {
-          result.textContent = 'SDK 不可用';
-          return;
-        }
-        try {
-          const msg = await window.sdk.sayHelloWithCallback('Electron');
           result.textContent = msg;
         } catch (err) {
           console.error(err);
@@ -53,6 +42,34 @@
         try {
           const msg = await window.sdk.nativeHello('Electron');
           result.textContent = msg;
+        } catch (err) {
+          console.error(err);
+          result.textContent = 'SDK 调用失败';
+        }
+      });
+
+      btnCreateEngine.addEventListener('click', async () => {
+        if (!window.sdk || typeof window.sdk.createEngine !== 'function') {
+          result.textContent = 'SDK 不可用';
+          return;
+        }
+        try {
+          await window.sdk.createEngine();
+          result.textContent = 'createEngine 调用完成（请查看主进程日志）';
+        } catch (err) {
+          console.error(err);
+          result.textContent = 'SDK 调用失败';
+        }
+      });
+
+      btnConnect.addEventListener('click', async () => {
+        if (!window.sdk || typeof window.sdk.connect !== 'function') {
+          result.textContent = 'SDK 不可用';
+          return;
+        }
+        try {
+          await window.sdk.connect();
+          result.textContent = 'connect 调用完成';
         } catch (err) {
           console.error(err);
           result.textContent = 'SDK 调用失败';

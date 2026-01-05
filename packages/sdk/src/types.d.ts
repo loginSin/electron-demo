@@ -1,8 +1,6 @@
 declare module '@rc/native' {
-  export function helloWithCallback(
-    name: string | undefined,
-    cb: (message: string) => void
-  ): void;
+  export function createEngine(storePath: string): bigint;
+  export function connect(engine: bigint): void;
 }
 
 
