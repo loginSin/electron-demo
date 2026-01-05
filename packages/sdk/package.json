@@ -1,5 +1,5 @@
 {
-  "name": "@app/sdk",
+  "name": "@rc/sdk",
   "version": "1.0.0",
   "private": true,
   "main": "dist/index.js",
@@ -13,7 +13,7 @@
     "build": "npm run clean && tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@app/native": "file:../native"
+    "@rc/native": "file:../native"
   },
   "devDependencies": {
     "typescript": "^5.6.3"

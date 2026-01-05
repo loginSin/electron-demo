@@ -1,6 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('node:path');
-const { RongIMClient } = require('@app/sdk');
+const { RongIMClient } = require('@rc/sdk');
 const sdkClient = new RongIMClient();
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.

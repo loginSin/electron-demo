@@ -1,4 +1,4 @@
-import * as native from '@app/native';
+import * as native from '@rc/native';
 
 export class RongIMClient {
   sayHello(name?: string): string {
@@ -20,7 +20,7 @@ export class RongIMClient {
   }
 
   /**
-   * 原生方法包装：调用 @app/native 的 helloWithCallback
+   * 原生方法包装：调用 @rc/native 的 helloWithCallback
    */
   nativeHello(
     name: string | undefined,
