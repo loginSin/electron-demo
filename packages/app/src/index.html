@@ -9,9 +9,11 @@
     <h1>💖 Hello World!</h1>
     <p>Welcome to your Electron application.</p>
     <button id="btnHello">调用 sayHello</button>
+    <button id="btnHelloCb" style="margin-left: 8px;">调用 sayHelloWithCallback</button>
     <p id="result" style="margin-top: 1rem; font-weight: bold;"></p>
     <script>
       const btn = document.getElementById('btnHello');
+      const btnCb = document.getElementById('btnHelloCb');
       const result = document.getElementById('result');
       btn.addEventListener('click', async () => {
         if (!window.sdk || typeof window.sdk.sayHello !== 'function') {
@@ -20,6 +22,20 @@
         }
         try {
           const msg = await window.sdk.sayHello('Electron');
+          result.textContent = msg;
+        } catch (err) {
+          console.error(err);
+          result.textContent = 'SDK 调用失败';
+        }
+      });
+
+      btnCb.addEventListener('click', async () => {
+        if (!window.sdk || typeof window.sdk.sayHelloWithCallback !== 'function') {
+          result.textContent = 'SDK 不可用';
+          return;
+        }
+        try {
+          const msg = await window.sdk.sayHelloWithCallback('Electron');
           result.textContent = msg;
         } catch (err) {
           console.error(err);

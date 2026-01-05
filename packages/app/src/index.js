@@ -40,6 +40,15 @@ app.whenReady().then(() => {
     return sdkClient.sayHello(name);
   });
 
+  // Expose callback-style method via IPC; convert callback to Promise result
+  ipcMain.handle('sdk:sayHelloWithCallback', (_event, name) => {
+    return new Promise((resolve) => {
+      sdkClient.sayHelloWithCallback(name, (message) => {
+        resolve(message);
+      });
+    });
+  });
+
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   app.on('activate', () => {
