@@ -2,9 +2,9 @@
   "name": "electron-project",
   "private": true,
   "scripts": {
-    "prestart": "npm --prefix packages/electron install && npm --prefix packages/electron run build && npm --prefix packages/electron-native run build && npm --prefix packages/electron-renderer install && npm --prefix packages/app install",
+    "prestart": "npm --prefix packages/electron-imlib install && npm --prefix packages/electron-imlib run build && npm --prefix packages/electron-native run build && npm --prefix packages/electron-renderer install && npm --prefix packages/app install",
     "start": "npm --prefix packages/app start",
-    "build:sdk": "npm --prefix packages/electron run build",
+    "build:sdk": "npm --prefix packages/electron-imlib run build",
     "install:app": "npm --prefix packages/app install",
     "make": "npm --prefix packages/app run make",
     "package": "npm --prefix packages/app run package",
