@@ -13,6 +13,9 @@ const createWindow = () => {
     height: 600,
     webPreferences: {
       preload: require.resolve('@rc/electron-renderer'),
+      // 允许渲染进程直接 require 使用 @rc/sdk 导出的 API
+      nodeIntegration: true,
+      contextIsolation: false,
     },
   });
 
