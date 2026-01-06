@@ -1,55 +1,34 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
-const path = require('node:path');
+// 渲染进程脚本：从 index.html 迁移出来，统一放在这里
+const result = document.getElementById('result');
+const btnCreateEngine = document.getElementById('btnCreateEngine');
+const btnConnect = document.getElementById('btnConnect');
 
-// Handle creating/removing shortcuts on Windows when installing/uninstalling.
-if (require('electron-squirrel-startup')) {
-  app.quit();
-}
-
-const createWindow = () => {
-  // Create the browser window.
-  const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      preload: require.resolve('@rc/electron-renderer'),
-    },
-  });
-
-  // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, 'index.html'));
-
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
-
-};
-
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.whenReady().then(() => {
-  createWindow();
-
-  // Register SDK IPC handlers via @rc/sdk
-  const { registerMainHandlers } = require('@rc/sdk/registerMain');
-  registerMainHandlers(ipcMain, app);
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
-    }
-  });
-});
-
-// Quit when all windows are closed, except on macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
+btnCreateEngine.addEventListener('click', async () => {
+  if (!window.sdk || typeof window.sdk.createEngine !== 'function') {
+    result.textContent = 'SDK 不可用';
+    return;
+  }
+  try {
+    await window.sdk.createEngine();
+    result.textContent = 'createEngine 调用完成（请查看主进程日志）';
+  } catch (err) {
+    console.error(err);
+    result.textContent = 'SDK 调用失败';
   }
 });
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
+btnConnect.addEventListener('click', async () => {
+  if (!window.sdk || typeof window.sdk.connect !== 'function') {
+    result.textContent = 'SDK 不可用';
+    return;
+  }
+  try {
+    const token =
+      'rdIKubNd6vTWuKUdlUU6eOF+lwb3rejulGH0HEWstV0=@h4mx.cn.rongnav.com;h4mx.cn.rongcfg.com';
+    const res = await window.sdk.connect(token, 5);
+    result.textContent = `connect 结果: code=${res && res.code !== undefined ? res.code : 'N/A'}, userId=${res && res.userId ? res.userId : ''}`;
+  } catch (err) {
+    console.error(err);
+    result.textContent = `SDK 调用失败: ${err && err.message ? err.message : String(err)}`;
+  }
+});
