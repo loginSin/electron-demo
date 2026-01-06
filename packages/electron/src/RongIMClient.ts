@@ -1,7 +1,7 @@
-import * as native from '@rc/native';
+import { NativeClient } from "./internal/native/NativeClient";
 
 export class RongIMClient {
-  private enginePtr: bigint = 0n;
+  private nativeClient: NativeClient = new NativeClient();
 
   private static instance: RongIMClient | null = null;
 
@@ -14,18 +14,11 @@ export class RongIMClient {
     return RongIMClient.instance;
   }
 
-  /**
-   * 原生方法包装：调用 @rc/native 的 createEngine
-   */
   createEngine(storePath: string): void {
-    this.enginePtr = native.createEngine(storePath);
-    // eslint-disable-next-line no-console
-    console.log('RongIM enginePtr:', this.enginePtr.toString());
+    this.nativeClient.createEngine(storePath);
   }
 
   connect(token: string, timeout: number, callback: (error: number, userId: string) => void): void {
-    native.connect(this.enginePtr, token, timeout, callback);
+    this.nativeClient.connect(token, timeout, callback);
   }
 }
-
-

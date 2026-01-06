@@ -11,7 +11,7 @@
         [ "OS==\"mac\"", {
           "include_dirs": [ "libs/mac/include" ],
           "xcode_settings": {
-            "MACOSX_DEPLOYMENT_TARGET": "11.0"
+            "MACOSX_DEPLOYMENT_TARGET": "15.5"
           },
           "conditions": [
             [ "target_arch==\"arm64\"", {

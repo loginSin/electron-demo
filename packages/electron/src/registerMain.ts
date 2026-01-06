@@ -16,8 +16,8 @@ export function registerMainHandlers(ipcMain: any, app: any): void {
   ipcMain.handle('sdk:connect', (_event: any, token: string, timeout: number) => {
     return new Promise<{ code: number; userId: string }>((resolve) => {
       sdkClient.connect(token, timeout, (error: number, userId: string) => {
-          // eslint-disable-next-line no-console
-          console.log('RongIM connected user:', userId);
+        // eslint-disable-next-line no-console
+        console.log('RongIM connected user:', userId);
         resolve({ "code": error, "userId": userId });
       });
     });

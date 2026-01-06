@@ -38,7 +38,7 @@ namespace rcim {
         param.imlib_version = "1.0.0";
         param.device_model = "MacBook Pro";
         param.device_manufacturer = "Apple";
-        param.os_version = "11.0";
+        param.os_version = "15.5";
         
         static const char kSdkName[] = "electron-sdk";
         static const char kSdkVer[] = "1.0.0";
