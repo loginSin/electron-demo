@@ -1,5 +1,5 @@
 declare function require(name: string): any;
-import { RongIMClient } from './RongIMClient';
+import { RongIMClient } from '../RongIMClient';
 
 export function registerMainHandlers(ipcMain: any, app: any): void {
   const fs = require('node:fs');

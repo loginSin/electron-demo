@@ -1,4 +1,4 @@
-import { getIpc } from './renderer';
+import { getIpc } from './internal/renderer';
 
 export function createEngine(): Promise<void> {
     return getIpc().invoke('sdk:invoke', 'createEngine');
