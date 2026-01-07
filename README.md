@@ -100,21 +100,19 @@ app.whenReady().then(() => {
 
 
 ```
-1. app/index.js 处于 renderer 进程，响应 UI 事件
+1. app/index.js 处于 renderer 进程，响应 UI 事件，调用 RongIMClient 的各种方法
 
-2. electron-imlib/API.ts 处于 renderer 进程，内部通过 ipc.invoke 进入主进程
+2. electron-imlib/RongIMClient.ts 处于 renderer 进程，内部通过 ipc.invoke 进入主进程
 
-3. electron-imlib/registerMain.ts 处于 main 进程，调用 RongIMClient 的各种方法
+3. electron-imlib/registerMain.ts 处于 main 进程，接收 renderer 事件 ，调用 NativeClient 的各种方法，重要：将 native 的 callback 转为 Promise
 
-4. electron-imlib/RongIMClient.ts 处于 main 进程，内部通过 NativeClient 调用 native 方法
+4. electron-imlib/NativeClient.ts 处于 main 进程，内部通过 native 方法调用 native 库
 
-5. electron-imlib/NativeClient.ts 处于 main 进程，内部通过 native 方法调用 native 库
+5. electron-native/types.d.ts 处于 main 进程，定义 native 方法的类型
 
-6. electron-native/types.d.ts 处于 main 进程，定义 native 方法的类型
+6. electron-native/main.cc 处于 main 进程，注册 native 方法的映射关系
 
-7. electron-native/main.cc 处于 main 进程，注册 native 方法的映射关系
-
-8. electron-native/xxx.cc 处于 main 进程，真正实现 native 方法
+7. electron-native/xxx.cc 处于 main 进程，真正实现 native 方法
 ```
 
 
@@ -129,3 +127,9 @@ app.whenReady().then(() => {
 
 4. electron-native/types.d.ts 导出 js 格式的 native 方法
 ```
+
+# todo
+
+连接监听
+
+ipc 跨进程方法进行统一
