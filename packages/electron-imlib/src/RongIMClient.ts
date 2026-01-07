@@ -1,7 +1,7 @@
 import { NativeClient } from "./internal/native/NativeClient";
 
 export class RongIMClient {
-  private nativeClient: NativeClient = new NativeClient();
+  private readonly nativeClient: NativeClient = new NativeClient();
 
   private static instance: RongIMClient | null = null;
 

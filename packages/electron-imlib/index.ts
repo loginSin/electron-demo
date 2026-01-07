@@ -1,1 +1,1 @@
-export { createEngine, connect } from './src/renderer';
+export { createEngine, connect } from './src/API';

@@ -1,8 +1,8 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 const bridge = {
-  createEngine: () => ipcRenderer.invoke('sdk:createEngine'),
-  connect: (token, timeout) => ipcRenderer.invoke('sdk:connect', token, timeout),
+  createEngine: () => ipcRenderer.invoke('sdk:invoke', 'createEngine'),
+  connect: (token, timeout) => ipcRenderer.invoke('sdk:invoke', 'connect', token, timeout),
 };
 
 // 在禁用 contextIsolation 的场景，不能使用 contextBridge

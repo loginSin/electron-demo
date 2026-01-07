@@ -6,7 +6,7 @@ declare function require(name: string): any;
 
 type IPCInvoker = (...args: any[]) => Promise<any>;
 
-const getIpc = () => {
+export const getIpc = () => {
   try {
     // `require` is available because the renderer is created with nodeIntegration.
     // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires
@@ -21,8 +21,4 @@ const getIpc = () => {
     throw new Error(`ipcRenderer unavailable: ${err instanceof Error ? err.message : String(err)}`);
   }
 };
-
-export const createEngine = () => getIpc().invoke('sdk:createEngine');
-
-export const connect = (token: string, timeout: number) => getIpc().invoke('sdk:connect', token, timeout);
 
