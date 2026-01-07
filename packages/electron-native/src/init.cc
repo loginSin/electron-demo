@@ -4,13 +4,13 @@
 #include <string>
 
 namespace rcim {
-    napi_value createEngine(napi_env env, napi_callback_info info) {
+    napi_value init(napi_env env, napi_callback_info info) {
         // 必传参数：第一个参数为存储路径字符串
         size_t argc = 1;
         napi_value args[1];
         napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
         if (argc < 1) {
-            napi_throw_type_error(env, nullptr, "createEngine requires 1 argument: storePath(string)");
+            napi_throw_type_error(env, nullptr, "init requires 1 argument: storePath(string)");
             return nullptr;
         }
         napi_valuetype t0;

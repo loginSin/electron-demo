@@ -1,18 +1,18 @@
 declare function require(name: string): any;
-import { RongIMClient } from '../RongIMClient';
+import { NativeClient } from './native/NativeClient';
 
 export function registerMainHandlers(ipcMain: any, app: any): void {
   const fs = require('node:fs');
   const path = require('node:path');
-  const sdkClient = RongIMClient.getInstance();
+  const sdkClient = NativeClient.getInstance();
 
   // 统一的跨进程方法映射，后续新增接口只需补充到 map 中
   const methodMap: Record<string, (...args: any[]) => any> = {
-    createEngine: () => {
+    init: () => {
       const userData = app.getPath('userData');
       const storePath = path.join(userData, 'database');
       try { fs.mkdirSync(storePath, { recursive: true }); } catch {}
-      return sdkClient.createEngine(storePath);
+      return sdkClient.init(storePath);
     },
     connect: (token: string, timeout: number) => new Promise<{ code: number; userId: string }>((resolve) => {
       sdkClient.connect(token, timeout, (error: number, userId: string) => {

@@ -1,24 +1,20 @@
-import { NativeClient } from "./internal/native/NativeClient";
+import { getIpc } from './internal/renderer';
 
 export class RongIMClient {
-  private readonly nativeClient: NativeClient = new NativeClient();
+    private static instance: RongIMClient | null = null;
 
-  private static instance: RongIMClient | null = null;
-
-  private constructor() {}
-
-  static getInstance(): RongIMClient {
-    if (!RongIMClient.instance) {
-      RongIMClient.instance = new RongIMClient();
+    static getInstance(): RongIMClient {
+        if (!RongIMClient.instance) {
+            RongIMClient.instance = new RongIMClient();
+        }
+        return RongIMClient.instance;
     }
-    return RongIMClient.instance;
-  }
 
-  createEngine(storePath: string): void {
-    this.nativeClient.createEngine(storePath);
-  }
+    static init(): Promise<void> {
+        return getIpc().invoke('sdk:invoke', 'init');
+    }
 
-  connect(token: string, timeout: number, callback: (error: number, userId: string) => void): void {
-    this.nativeClient.connect(token, timeout, callback);
-  }
+    connect(token: string, timeout: number): Promise<{code: number, userId: string}> {
+        return getIpc().invoke('sdk:invoke', 'connect', token, timeout);
+    }
 }

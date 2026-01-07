@@ -13,7 +13,7 @@ napi_status register_function(napi_env env, napi_value exports, const char* name
 }
 
 static napi_value Init(napi_env env, napi_value exports) {
-  register_function(env, exports, "createEngine", createEngine);
+  register_function(env, exports, "init", init);
   register_function(env, exports, "connect", connect);
   return exports;
 }

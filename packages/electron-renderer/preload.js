@@ -1,7 +1,7 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 const bridge = {
-  createEngine: () => ipcRenderer.invoke('sdk:invoke', 'createEngine'),
+  init: () => ipcRenderer.invoke('sdk:invoke', 'init'),
   connect: (token, timeout) => ipcRenderer.invoke('sdk:invoke', 'connect', token, timeout),
 };
 

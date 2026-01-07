@@ -1,1 +1,1 @@
-export { createEngine, connect } from './src/API';
+export { RongIMClient } from './src/RongIMClient';
