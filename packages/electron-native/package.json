@@ -6,7 +6,8 @@
   "gypfile": true,
   "scripts": {
     "build": "node-gyp rebuild"
-  }
+  },
+  "types": "types.d.ts"
 }
 
 
